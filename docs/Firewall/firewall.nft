@@ -1,0 +1,28 @@
+flush ruleset
+table inet filter{
+	define AP = "ap0"
+	define WAN = "wlp3s0"
+	chain input {
+		type filter hook input priority filter; policy drop;
+		iif lo accept
+		ct state invalid drop
+		ct state established, related accept
+		meta l4proto ipv6-icmp accept
+		iifname $WAN udp dport 68 accept
+		iifname $AP udp dport {53,67} accept
+		iifname $AP tcp dport {53,80,443} accept
+		iifname $AP icmp type echo-request accept
+		iifname $AP tcp dport 22 drop
+		iifname $AP counter comment "input refusé"
+	}
+
+	chain forward {
+		type filter hook forward priority filter; policy drop;
+		iifname $AP oifname $WAN counter drop comment "ap0 vers organisme"
+		iifname $WAN oifname $AP counter drop comment "organisme vers ap0"
+	}
+
+	chain output {
+		type filter hook output priority filter; policy accept;
+	}
+}
