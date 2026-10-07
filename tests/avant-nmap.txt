@@ -1,0 +1,11 @@
+# Nmap 7.98 scan initiated Wed Oct  7 09:15:32 2026 as: nmap -sS -p- -oN tests/avant-nmap.txt 192.168.50.1
+Nmap scan report for shirogane.local (192.168.50.1)
+Host is up (0.000063s latency).
+Not shown: 65531 filtered tcp ports (no-response)
+PORT    STATE SERVICE
+22/tcp  open  ssh
+53/tcp  open  domain
+80/tcp  open  http
+443/tcp open  https
+
+# Nmap done at Wed Oct  7 09:17:16 2026 -- 1 IP address (1 host up) scanned in 104.40 seconds

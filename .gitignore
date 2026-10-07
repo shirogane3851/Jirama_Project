@@ -1,0 +1,20 @@
+# Secrets : ne jamais les envoyer sur Git
+.env
+*.pem
+*.key
+pswd.txt
+
+# Environnements et fichiers générés
+venv/
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+node_modules/
+
+# Archives et corrigé de référence
+*.zip
+projet-pointage/
+
+# Configuration locale de l'infrastructure (contient le mot de passe Wi-Fi)
+infra/config.env
