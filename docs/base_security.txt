@@ -1,0 +1,13 @@
+shirogane@shirogane:~/Bureau/Jirama_Project/app/backend$ psql -h localhost -U gestion_app -d gestion_personnel -c "SELECT COUNT(*) FROM employe;"
+psql -h localhost -U gestion_app -d gestion_personnel -c "DROP TABLE employe;"
+psql -h localhost -U gestion_app -d gestion_personnel -c "DELETE FROM employe;"
+Password for user gestion_app: 
+ count 
+-------
+     0
+(1 row)
+
+Password for user gestion_app: 
+ERROR:  must be owner of table employe
+Password for user gestion_app: 
+ERROR:  permission denied for table employe

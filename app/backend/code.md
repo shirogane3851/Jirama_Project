@@ -1,0 +1,10 @@
+200 réussi, 
+201 créé, 
+204 réussi sans contenu, 
+401 non connecté, 
+403 connecté mais interdit, 
+404 introuvable, 
+409 conflit (déjà existant), 
+422 données invalides, 
+423 compte verrouillé, 
+429 trop de requêtes.
