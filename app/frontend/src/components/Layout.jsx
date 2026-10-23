@@ -19,7 +19,7 @@ export default function Layout({ items, current, children }) {
             <small>{ROLES[user.role]}</small>
           </div>
           <button className="icon-btn" onClick={logout} aria-label="Se déconnecter" title="Se déconnecter">
-            <img src={logoutIcon} alt="" />
+            <img src={logoutIcon} width="20px" alt="" />
           </button>
         </div>
       </header>
