@@ -1,3 +1,4 @@
+from datetime import date, datetime, time
 from typing import Optional
 
 from fastapi import APIRouter, Depends, Query
@@ -17,6 +18,8 @@ def list_logs(
     user_id: Optional[int] = None,
     action: Optional[str] = None,
     table_name: Optional[str] = None,
+    du: Optional[date] = None,
+    au: Optional[date] = None,
     skip: int = Query(0, ge=0),
     limit: int = Query(100, ge=1, le=500),
     db: Session = Depends(get_db),
@@ -29,5 +32,9 @@ def list_logs(
         stmt = stmt.where(Log.action == action)
     if table_name is not None:
         stmt = stmt.where(Log.table_name == table_name)
+    if du is not None:
+        stmt = stmt.where(Log.timestamp >= datetime.combine(du, time.min))
+    if au is not None:
+        stmt = stmt.where(Log.timestamp <= datetime.combine(au, time.max))
     stmt = stmt.order_by(Log.timestamp.desc()).offset(skip).limit(limit)
     return db.scalars(stmt).all()

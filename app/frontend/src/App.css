@@ -86,6 +86,8 @@ th { font-size: .85rem; color: var(--muted); }
 .login .card { width: min(400px, 100%); padding: 28px; display: flex; flex-direction: column; gap: 14px; margin: 0; }
 .login img { height: 56px; align-self: flex-start; }
 
+.pager { margin-top: 16px; }
+
 @media (max-width: 820px) {
   .shell { height: auto; min-height: 100vh; }
   .body { flex-direction: column-reverse; }

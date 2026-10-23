@@ -10,6 +10,7 @@ import DemandesPermissions from "./pages/validateur/demandesPermissions";
 import DashboardEmp from "./pages/employe/dashboardEmp";
 import MesConges from "./pages/employe/mesConges";
 import MonPointage from "./pages/employe/monPointage";
+import AuditLog from "./pages/admin/auditlog";
 
 const ALL = ["EMPLOYE", "AGENT_POINTAGE", "VALIDATEUR_CONGE", "ADMIN_COMPTES"];
 
@@ -22,6 +23,7 @@ const PAGES = [
   { key: "accueil", label: "Tableau de bord", C: DashboardEmp, roles: ALL },
   { key: "mes-conges", label: "Mes congés et permissions", C: MesConges, roles: ALL },
   { key: "mon-pointage", label: "Mon pointage", C: MonPointage, roles: ALL },
+  { key: "audit", label: "Journal d’audit", C: AuditLog, roles: ["ADMIN_COMPTES"] },
 ];
 
 export default function App() {
