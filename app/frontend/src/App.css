@@ -88,13 +88,16 @@ th { font-size: .85rem; color: var(--muted); }
 
 .pager { margin-top: 16px; }
 
+.badge { white-space: nowrap; }
+
 /* Tablette et téléphone : le menu passe en haut, en bandeau qui défile */
 @media (max-width: 820px) {
   .shell { height: auto; min-height: 100vh; }
   .top { position: sticky; top: 0; z-index: 10; }
-  .body { flex-direction: column-reverse; padding: 10px; gap: 10px; }
+  .body { flex-direction: column; padding: 10px; gap: 10px; }
   .content { flex: none; overflow: visible; padding: 16px; }
   .menu {
+    order: -1;
     position: sticky; top: 58px; z-index: 9;
     width: auto; align-self: stretch;
     flex-direction: row; flex-wrap: nowrap; overflow-x: auto;
@@ -107,6 +110,12 @@ th { font-size: .85rem; color: var(--muted); }
 
 /* Téléphone */
 @media (max-width: 520px) {
+  html { font-size: 14px; }
+  h1 { font-size: 1.35rem; }
+  h2 { font-size: 1.05rem; }
+  .menu a { font-size: .95rem; padding: 11px 14px; }
+  .scroll table { font-size: .92rem; }
+  .brand, .who { font-size: .9rem; }
   h1 { font-size: 1.4rem; }
   .top { padding: 0 12px; }
   .who strong { display: block; max-width: 110px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -122,14 +131,14 @@ th { font-size: .85rem; color: var(--muted); }
   .card > .row .btn { flex: 1 1 100%; }
   .search img { bottom: 15px; }
 
-  /* Tableaux : on garde une largeur lisible et on fait défiler */
-  .scroll table { min-width: 480px; }
-  th, td { padding: 8px 10px; overflow-wrap: anywhere; }
+  /* Tableaux : largeur lisible, défilement horizontal, mots jamais coupés */
+  .scroll table { min-width: 560px; }
+  th, td { padding: 8px 10px; }
+  th { white-space: nowrap; }
 
   .solde { flex-wrap: wrap; gap: 6px 12px; }
-  .solde b { font-size: 3.2rem; }
+  .solde b { font-size: 2.8rem; }
   .tabs .btn { flex: 1; }
   .pager .btn { flex: 1 1 auto; }
 }
-
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
