@@ -12,6 +12,7 @@ const ACTIONS = {
   DELETE: ["Suppression", "bad"],
   DECISION: ["Décision", "warn"],
   LIFT: ["Levée", "warn"],
+  LOGIN_LOCKED: ["Compte verrouillé", "bad"],
 };
 const TABLES = ["compte", "employe", "conge", "permission", "pointage", "avertissement"];
 const VIDE = { user_id: "", action: "", table_name: "", du: "", au: "" };
