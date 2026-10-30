@@ -1,0 +1,15 @@
+  Static hostname: andrianina
+        Icon name: computer-laptop
+          Chassis: laptop 💻
+Chassis Asset Tag: No Asset Tag
+       Machine ID: e31e2ada2b814e328675c3fce46c164a
+          Boot ID: 6951eb2240274af4b11e487ef48c1e6c
+ Operating System: Ubuntu 26.10
+           Kernel: Linux 7.3.0-9-generic
+     Architecture: x86-64
+  Hardware Vendor: ASUSTeK COMPUTER INC.
+   Hardware Model: X542URR
+ Hardware Version: 1.0
+ Firmware Version: X542URR.309
+    Firmware Date: Tue 2019-05-21
+     Firmware Age: 7y 5month 1w 2d

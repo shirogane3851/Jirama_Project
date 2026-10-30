@@ -1,0 +1,11 @@
+# Nmap 7.99 scan initiated Fri Oct 30 10:10:58 2026 as: nmap -sU -p 53,67,68,123 -oN /home/andrianina/releve-avant/nmap-udp-ap0.txt 192.168.50.1
+Nmap scan report for andrianina.local (192.168.50.1)
+Host is up (0.000049s latency).
+
+PORT    STATE  SERVICE
+53/udp  open   domain
+67/udp  closed dhcps
+68/udp  closed dhcpc
+123/udp closed ntp
+
+# Nmap done at Fri Oct 30 10:10:58 2026 -- 1 IP address (1 host up) scanned in 0.24 seconds

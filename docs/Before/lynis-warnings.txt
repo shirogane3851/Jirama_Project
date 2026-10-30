@@ -1,0 +1,4 @@
+warning[]=NAME-4210|Found BIND version in banner|-|-|
+warning[]=DBS-1828|PostgreSQL configuration file /etc/postgresql/18/main/postgresql.conf is world readable and might leak sensitive details|/etc/postgresql/18/main/postgresql.conf|Use chmod 600 to change file permissions|
+warning[]=DBS-1828|PostgreSQL configuration file /etc/postgresql/18/main/start.conf is world readable and might leak sensitive details|/etc/postgresql/18/main/start.conf|Use chmod 600 to change file permissions|
+warning[]=DBS-1828|PostgreSQL configuration file /etc/postgresql/18/main/pg_ctl.conf is world readable and might leak sensitive details|/etc/postgresql/18/main/pg_ctl.conf|Use chmod 600 to change file permissions|

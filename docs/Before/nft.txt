@@ -1,0 +1,13 @@
+table ip nat {
+	chain POSTROUTING {
+		type nat hook postrouting priority srcnat; policy accept;
+		oifname "wlp3s0" counter packets 428 bytes 64065 masquerade
+	}
+}
+table ip filter {
+	chain FORWARD {
+		type filter hook forward priority filter; policy accept;
+		iifname "ap0" oifname "wlp3s0" counter packets 8507 bytes 2388163 accept
+		iifname "wlp3s0" oifname "ap0" ct state related,established counter packets 7790 bytes 2061929 accept
+	}
+}

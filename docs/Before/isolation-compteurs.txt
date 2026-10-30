@@ -1,0 +1,14 @@
+=== AVANT le test : jeu. 29 oct 2026 14:20:05 EAT ===
+Chain FORWARD (policy ACCEPT 0 packets, 0 bytes)
+       0        0 ACCEPT     all  --  ap0    wlp3s0  0.0.0.0/0            0.0.0.0/0           
+       0        0 ACCEPT     all  --  wlp3s0 ap0     0.0.0.0/0            0.0.0.0/0            state RELATED,ESTABLISHED
+
+=== APRÈS le test : jeu. 29 oct 2026 14:20:15 EAT ===
+Chain FORWARD (policy ACCEPT 0 packets, 0 bytes)
+       0        0 ACCEPT     all  --  ap0    wlp3s0  0.0.0.0/0            0.0.0.0/0           
+       0        0 ACCEPT     all  --  wlp3s0 ap0     0.0.0.0/0            0.0.0.0/0            state RELATED,ESTABLISHED
+
+=== APRÈS le test depuis le téléphone : jeu. 29 oct 2026 14:34:59 EAT ===
+Chain FORWARD (policy ACCEPT 0 packets, 0 bytes)
+    6725   863503 ACCEPT     all  --  ap0    wlp3s0  0.0.0.0/0            0.0.0.0/0           
+   15902 20811745 ACCEPT     all  --  wlp3s0 ap0     0.0.0.0/0            0.0.0.0/0            state RELATED,ESTABLISHED
