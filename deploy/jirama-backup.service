@@ -1,0 +1,9 @@
+[Unit]
+Description=Sauvegarde chiffrée Jirama (pg_dump + Borg)
+After=postgresql.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/backup-jirama.sh
+Nice=10
+IOSchedulingClass=idle

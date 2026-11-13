@@ -1,0 +1,18 @@
+[Unit]
+Description=Hotspot ap0 (STA+AP)
+After=NetworkManager.service network-online.target
+Wants=network-online.target
+Before=dnsmasq.service
+
+[Service]
+Type=simple
+ExecStartPre=/usr/local/sbin/ap-prepare.sh
+ExecStart=/usr/sbin/hostapd /run/hostapd-ap0.conf
+ExecStartPost=-/usr/sbin/rndc scan
+ExecStopPost=/usr/local/sbin/ap-cleanup.sh
+Restart=on-failure
+RestartSec=5
+TimeoutStartSec=90
+
+[Install]
+WantedBy=multi-user.target
