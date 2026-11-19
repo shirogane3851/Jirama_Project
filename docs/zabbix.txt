@@ -1,0 +1,13 @@
+andrianina@andrianina:/etc$ sudo -u zabbix curl -s -m 5 -o /dev/null -w "avant la règle : %{http_code}\n" https://example.com
+sudo nft -c -f ~/Bureau/Jirama_project/docs/Firewall/firewall.nft && sudo cp ~/Bureau/Jirama_project/docs/Firewall/firewall.nft /etc/nftables.conf && sudo nft -f /etc/nftables.conf
+sudo -u zabbix curl -s -m 5 -o /dev/null -w "après la règle : %{http_code}\n" https://example.com
+sudo nft list chain inet filter output
+avant la règle : 200
+après la règle : 000
+table inet filter {
+	chain output {
+		type filter hook output priority filter; policy accept;
+		meta skuid 114 oifname != "lo" counter packets 10 bytes 600 drop comment "Zabbix : réseau local uniquement"
+	}
+}
+

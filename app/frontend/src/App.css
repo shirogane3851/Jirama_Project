@@ -90,6 +90,19 @@ th { font-size: .85rem; color: var(--muted); }
 
 .badge { white-space: nowrap; }
 
+.photo, .avatar-init { object-fit: cover; flex: none; }
+.avatar-init { display: inline-grid; place-items: center; font-weight: 700; color: var(--indigo); background: #e3e2f4; }
+.liste-emp { list-style: none; margin: 0 0 12px; padding: 0; max-height: 280px; overflow-y: auto; border: 1px solid var(--line); border-radius: 8px; }
+.emp-btn { display: flex; align-items: center; gap: 12px; width: 100%; padding: 8px 12px; border: 0; border-bottom: 1px solid var(--line); background: #fff; font: inherit; text-align: left; cursor: pointer; }
+.emp-btn small { display: block; color: var(--muted); }
+.emp-btn:hover { background: #f1f0fa; }
+.emp-btn[aria-selected="true"] { background: #fdf0dc; box-shadow: inset 4px 0 0 var(--orange); }
+.emp-choisi { display: flex; align-items: center; gap: 16px; padding: 12px; margin-bottom: 12px; background: #f7f7fc; border-radius: 10px; }
+.emp-choisi h3 { margin: 0 0 4px; }
+.cell-emp { display: inline-flex; align-items: center; gap: 8px; }
+.grille-photos { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+.carte-photo { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 12px; background: #fff; border: 1px solid var(--line); border-radius: 8px; text-align: center; }
+
 /* Tablette et téléphone : le menu passe en haut, en bandeau qui défile */
 @media (max-width: 820px) {
   .shell { height: auto; min-height: 100vh; }

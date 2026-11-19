@@ -24,5 +24,6 @@ table inet filter{
 
 	chain output {
 		type filter hook output priority filter; policy accept;
+		meta skuid "zabbix" oifname != "lo" counter drop comment "Zabbix : réseau local uniquement"
 	}
 }

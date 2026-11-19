@@ -4,4 +4,4 @@ pydantic-settings
 sqlalchemy
 psycopg
 bcrypt
-PyJWT
+PyJWTPillow

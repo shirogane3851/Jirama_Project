@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ROLES } from "../../auth";
 import { api, useFetch } from "../../api";
 import { Badge, Empty, Feedback, clean, useEmployes, useFeedback } from "../../components/ui";
+import Photo from "../../components/Photo";
 
 const EMP0 = { nom: "", prenom: "", matricule: "", telephone: "", email: "", date_embauche: "", solde_conge: "" };
 const CPT0 = { employe_id: "", username: "", role: "EMPLOYE", password: "" };
@@ -60,9 +61,14 @@ export default function GestionCompte() {
         <div className="tabs">
           <button className="btn" aria-pressed={mode === "compte"} onClick={() => setMode("compte")}>Nouveau compte</button>
           <button className="btn" aria-pressed={mode === "employe"} onClick={() => setMode("employe")}>Nouvel employé</button>
+          <button className="btn" aria-pressed={mode === "photos"} onClick={() => setMode("photos")}>Photos</button>
         </div>
 
-        {mode === "compte" ? (
+        
+
+        {mode === "photos" ? (
+          <PhotosEmployes employes={employes} run={run} recharger={reloadEmployes} />):
+         mode === "compte" ? (
           <form className="form" onSubmit={creerCompte}>
             <label>Employé
               <select value={cpt.employe_id} onChange={setC("employe_id")} required>
@@ -126,5 +132,44 @@ export default function GestionCompte() {
         </div>
       )}
     </>
+  );
+}
+
+function PhotosEmployes({ employes, run, recharger }) {
+  const [v, setV] = useState({});   // version par employé : force le rechargement de l’image
+  const maj = (id) => {
+    setV((x) => ({ ...x, [id]: Date.now() }));
+    recharger();                    // relit la liste, pour afficher ou masquer « Retirer »
+  };
+  const envoyer = (e, id) => {
+    const f = e.target.files[0];
+    e.target.value = "";
+    if (!f) return;
+    const fd = new FormData();
+    fd.append("fichier", f);
+    run(async () => {
+      await api(`/employes/${id}/photo`, { method: "POST", body: fd });
+      maj(id);
+    }, "Photo enregistrée.");
+  };
+  const retirer = (id) =>
+    run(async () => {
+      await api(`/employes/${id}/photo`, { method: "DELETE" });
+      maj(id);
+    }, "Photo retirée.");
+
+  return (
+    <div className="grille-photos">
+      {employes.map((e) => (
+        <div key={e.id} className="carte-photo">
+          <Photo employe={e} size={72} version={v[e.id] ?? 0} />
+          <strong>{e.prenom} {e.nom}</strong>
+          <label className="btn">Choisir une photo
+            <input type="file" className="sr" accept="image/jpeg,image/png,image/webp" onChange={(ev) => envoyer(ev, e.id)} />
+          </label>
+          {e.photo_identite && <button className="btn danger" onClick={() => retirer(e.id)}>Retirer</button>}
+        </div>
+      ))}
+    </div>
   );
 }

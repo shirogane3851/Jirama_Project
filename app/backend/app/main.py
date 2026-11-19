@@ -4,6 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from routers import auth, comptes, employes, logs
 from routers.demandes import conge_router, permission_router
 from routers.pointages import avertissement_router, pointage_router
+from routers import photos
 
 app = FastAPI(title="Jirama - Gestion du personnel", version="1.0.0")
 
@@ -22,6 +23,7 @@ app.include_router(permission_router)
 app.include_router(pointage_router)
 app.include_router(avertissement_router)
 app.include_router(logs.router)
+app.include_router(photos.router)
 
 
 @app.get("/", tags=["Santé"])

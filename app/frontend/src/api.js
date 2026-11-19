@@ -22,6 +22,7 @@ export async function api(path, { method = "GET", body, form } = {}) {
   if (token) headers.Authorization = `Bearer ${token}`;
   let payload;
   if (form) payload = new URLSearchParams(form);
+  else if (body instanceof FormData) payload = body;   // le navigateur fixe le Content-Type tout seul
   else if (body !== undefined) {
     headers["Content-Type"] = "application/json";
     payload = JSON.stringify(body);

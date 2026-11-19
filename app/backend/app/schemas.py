@@ -51,7 +51,6 @@ class EmployeBase(BaseModel):
     telephone: Optional[str] = Field(None, max_length=14)
     email: Optional[EmailStr] = Field(None, max_length=100)
     date_embauche: Optional[datetime] = None
-    photo_identite: Optional[str] = Field(None, max_length=255)
 
 
 class EmployeCreate(EmployeBase):
@@ -65,13 +64,13 @@ class EmployeUpdate(BaseModel):
     telephone: Optional[str] = Field(None, max_length=14)
     email: Optional[EmailStr] = Field(None, max_length=100)
     date_embauche: Optional[datetime] = None
-    photo_identite: Optional[str] = Field(None, max_length=255)
     solde_conge: Optional[Decimal] = Field(None, ge=0, max_digits=4, decimal_places=1)
 
 
 class EmployeRead(EmployeBase, ORMModel):
     id: int
     solde_conge: Decimal
+    photo_identite: Optional[str] = None
 
 
 # ---------------------------------------------------------------- compte

@@ -1,0 +1,99 @@
+zabbix_export:
+  version: '7.0'
+  host_groups:
+    - uuid: 6f6799aa69e844b4b3918f779f2abf08
+      name: 'Zabbix servers'
+  hosts:
+    - host: 'Zabbix server'
+      name: 'Zabbix server'
+      templates:
+        - name: 'Linux by Zabbix agent'
+        - name: 'Zabbix server health'
+      groups:
+        - name: 'Zabbix servers'
+      interfaces:
+        - interface_ref: if1
+      items:
+        - name: API
+          key: 'net.tcp.port[127.0.0.1,8000]'
+          history: 7d
+          trends: '0'
+          interface_ref: if1
+          triggers:
+            - expression: 'last(/Zabbix server/net.tcp.port[127.0.0.1,8000])=0'
+              name: 'API arrêté'
+              priority: HIGH
+        - name: 'Wi-Fi (ap0)'
+          key: 'systemd.unit.info[ap0.service,ActiveState]'
+          history: 7d
+          value_type: CHAR
+          trends: '0'
+          interface_ref: if1
+          triggers:
+            - expression: 'last(/Zabbix server/systemd.unit.info[ap0.service,ActiveState])<>"active"'
+              name: 'Wi-Fi (ap0) arrêté'
+              priority: HIGH
+        - name: 'Service DNS (bind9)'
+          key: 'systemd.unit.info[bind9.service,ActiveState]'
+          history: 7d
+          value_type: CHAR
+          trends: '0'
+          interface_ref: if1
+        - name: DHCP
+          key: 'systemd.unit.info[dnsmasq.service,ActiveState]'
+          history: 7d
+          value_type: CHAR
+          trends: '0'
+          interface_ref: if1
+          triggers:
+            - expression: 'last(/Zabbix server/systemd.unit.info[dnsmasq.service,ActiveState])<>"active"'
+              name: 'DHCP arrêté'
+              priority: HIGH
+        - name: Pare-feu
+          key: 'systemd.unit.info[nftables.service,ActiveState]'
+          history: 7d
+          value_type: CHAR
+          trends: '0'
+          interface_ref: if1
+          triggers:
+            - expression: 'last(/Zabbix server/systemd.unit.info[nftables.service,ActiveState])<>"active"'
+              name: 'DNS (Bind9) arrêté'
+              priority: HIGH
+            - expression: 'last(/Zabbix server/systemd.unit.info[nftables.service,ActiveState])<>"active"'
+              name: 'Pare-feu arrêté'
+              priority: DISASTER
+        - name: nginx
+          key: 'systemd.unit.info[nginx.service,ActiveState]'
+          history: 7d
+          value_type: CHAR
+          trends: '0'
+          interface_ref: if1
+          triggers:
+            - expression: 'last(/Zabbix server/systemd.unit.info[nginx.service,ActiveState])<>"active"'
+              name: 'nginx arrêté'
+              priority: HIGH
+        - name: PostgreSQL
+          key: 'systemd.unit.info[postgresql@18-main.service,ActiveState]'
+          history: 7d
+          value_type: CHAR
+          trends: '0'
+          interface_ref: if1
+          triggers:
+            - expression: 'last(/Zabbix server/systemd.unit.info[postgresql@18-main.service,ActiveState])<>"active"'
+              name: 'PostgreSQL arrêté'
+              priority: DISASTER
+        - name: 'âge de la sauvegarde'
+          key: 'vfs.file.time[/var/log/jirama-backup.last,modify]'
+          history: 7d
+          trends: '0'
+          interface_ref: if1
+          triggers:
+            - expression: '(now()-last(/Zabbix server/vfs.file.time[/var/log/jirama-backup.last,modify]))>259200'
+              name: 'âge de la sauvegarde'
+              priority: AVERAGE
+      inventory:
+        name: andrianina
+        os: 'Linux version 7.3.0-10-generic (buildd@lcy02-amd64-108) (x86_64-linux-gnu-gcc (Ubuntu 15.3.0-4ubuntu1) 15.3.0, GNU ld (GNU Binut'
+        location_lat: '56.97612'
+        location_lon: '24.16553'
+      inventory_mode: AUTOMATIC

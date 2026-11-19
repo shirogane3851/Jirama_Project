@@ -40,10 +40,10 @@ class Employe(Base):
     telephone: Mapped[Optional[str]] = mapped_column(String(14), unique=True)
     email: Mapped[Optional[str]] = mapped_column(String(100), unique=True)
     date_embauche: Mapped[Optional[datetime]] = mapped_column(DateTime)
-    photo_identite: Mapped[Optional[str]] = mapped_column(String(255))
     solde_conge: Mapped[Decimal] = mapped_column(
         Numeric(4, 1), nullable=False, default=0, server_default="0"
     )
+    photo_identite: Mapped[str] = mapped_column(String(100), nullable=False)
 
     compte: Mapped[Optional["Compte"]] = relationship(
         back_populates="employe", uselist=False

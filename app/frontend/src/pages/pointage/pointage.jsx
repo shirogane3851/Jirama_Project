@@ -4,6 +4,7 @@ import {
   Badge, Empty, Feedback, TYPE_AVERT, TYPE_POINTAGE, fmtDateTime, nowLocal, useEmployes, useFeedback,
 } from "../../components/ui";
 import searchIcon from "../../../static/icon/search.png";
+import Photo from "../../components/Photo";
 
 export default function Pointage() {
   const { list, nom } = useEmployes();
@@ -15,7 +16,9 @@ export default function Pointage() {
   const [fb, run] = useFeedback();
 
   const filtres = list.filter((e) => `${e.nom} ${e.prenom} ${e.matricule}`.toLowerCase().includes(q.toLowerCase()));
-  const choisi = employeId ? nom(Number(employeId)) : "";
+  const sel = list.find((e) => String(e.id) === employeId);
+  const choisi = sel ? `${sel.prenom} ${sel.nom}` : "";
+  const emp = (id) => list.find((e) => e.id === id) ?? { id, nom: "", prenom: "" };
 
   const pointer = (type) =>
     run(async () => {
@@ -60,11 +63,23 @@ export default function Pointage() {
             <img src={searchIcon} alt="" />
             <input placeholder="Nom, prénom ou matricule" value={q} onChange={(e) => setQ(e.target.value)} />
           </label>
-          <select size={6} value={employeId} onChange={(e) => setEmployeId(e.target.value)} aria-label="Employés">
+          {sel && (
+            <div className="emp-choisi">
+            <Photo key={sel.id} employe={sel} size={96} rond={false} />
+            <div><h3>{sel.prenom} {sel.nom}</h3><p className="muted">{sel.matricule}</p></div>
+            </div>
+          )}
+          <ul className="liste-emp" role="listbox" aria-label="Employés">
             {filtres.map((e) => (
-              <option key={e.id} value={e.id}>{e.nom} {e.prenom} ({e.matricule})</option>
+              <li key={e.id}>
+                <button type="button" role="option" aria-selected={String(e.id) === employeId}
+                  className="emp-btn" onClick={() => setEmployeId(String(e.id))}>
+                  <Photo employe={e} size={40} />
+                  <span><strong>{e.nom} {e.prenom}</strong><small>{e.matricule}</small></span>
+                </button>
+              </li>
             ))}
-          </select>
+          </ul>
           <div className="row">
             <button className="btn primary" disabled={!employeId} onClick={() => pointer("entree")}>Enregistrer l’entrée</button>
             <button className="btn primary" disabled={!employeId} onClick={() => pointer("sortie")}>Enregistrer la sortie</button>
@@ -95,7 +110,7 @@ export default function Pointage() {
             <thead><tr><th>Employé</th><th>Type</th><th>Date et heure</th></tr></thead>
             <tbody>
               {pts.map((p) => (
-                <tr key={p.id}><td>{nom(p.employe_id)}</td><td>{TYPE_POINTAGE[p.type]}</td><td>{fmtDateTime(p.timestamp)}</td></tr>
+                <tr key={p.id}><td><span className="cell-emp"><Photo employe={emp(p.employe_id)} size={28} />{nom(p.employe_id)}</span></td><td>{TYPE_POINTAGE[p.type]}</td><td>{fmtDateTime(p.timestamp)}</td></tr>
               ))}
             </tbody>
           </table>
@@ -110,7 +125,7 @@ export default function Pointage() {
             <tbody>
               {avs.map((a) => (
                 <tr key={a.id}>
-                  <td>{nom(a.employe_id)}</td>
+                  <td><span className="cell-emp"><Photo employe={emp(a.employe_id)} size={28} />{nom(a.employe_id)}</span></td>
                   <td>{TYPE_AVERT[a.type] ?? a.type}</td>
                   <td>{fmtDateTime(a.date_concernee)}</td>
                   <td>{a.motif || "—"}</td>
